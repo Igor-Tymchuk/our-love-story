@@ -3,17 +3,32 @@ import translations from "@/lib/translations";
 
 const LanguageContext = createContext();
 
-export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState(() => {
-    try {
-      return localStorage.getItem("nadia_lang") || "en";
-    } catch {
-      return "en";
+const getDefaultLanguage = () => {
+  try {
+    const savedLang = localStorage.getItem("nadia_lang");
+
+    if (savedLang) {
+      return savedLang;
     }
-  });
+
+    const browserLang = navigator.language.toLowerCase();
+
+    if (browserLang.startsWith("uk")) return "uk";
+    if (browserLang.startsWith("pl")) return "pl";
+    if (browserLang.startsWith("en")) return "en";
+
+    return "en";
+  } catch {
+    return "en";
+  }
+};
+
+export function LanguageProvider({ children }) {
+  const [lang, setLang] = useState(getDefaultLanguage);
 
   const switchLang = useCallback((l) => {
     setLang(l);
+
     try {
       localStorage.setItem("nadia_lang", l);
     } catch {}
