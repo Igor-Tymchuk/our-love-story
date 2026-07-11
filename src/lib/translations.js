@@ -157,7 +157,7 @@ Na zawsze Twój.`,
     navPrev: "Poprzedni",
     navNext: "Następny",
   },
-  ua: {
+  uk: {
     heroTitle: "Надя",
     heroSubtitle: "Це історія про нас.",
     heroText: "Кожна прекрасна історія починається з одного моменту.",

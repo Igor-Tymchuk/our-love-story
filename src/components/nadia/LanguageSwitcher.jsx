@@ -6,7 +6,7 @@ import { Globe } from "lucide-react";
 const LANGS = [
   { code: "en", label: "EN" },
   { code: "pl", label: "PL" },
-  { code: "ua", label: "UA" },
+  { code: "uk", label: "UA" },
 ];
 
 export default function LanguageSwitcher() {

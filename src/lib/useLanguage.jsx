@@ -11,12 +11,20 @@ const getDefaultLanguage = () => {
       return savedLang;
     }
 
-    const browserLang = navigator.language.toLowerCase();
+    const browserLanguages = navigator.languages || [navigator.language];
 
-    if (browserLang.startsWith("uk")) return "uk";
-    if (browserLang.startsWith("pl")) return "pl";
-    if (browserLang.startsWith("en")) return "en";
+    const supportedLanguages = ["uk", "pl", "en"];
 
+    for (const browserLang of browserLanguages) {
+      const lang = browserLang.toLowerCase().split("-")[0];
+
+      if (supportedLanguages.includes(lang)) {
+        localStorage.setItem("nadia_lang", lang);
+        return lang;
+      }
+    }
+
+    localStorage.setItem("nadia_lang", "en");
     return "en";
   } catch {
     return "en";
@@ -26,11 +34,11 @@ const getDefaultLanguage = () => {
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState(getDefaultLanguage);
 
-  const switchLang = useCallback((l) => {
-    setLang(l);
+  const switchLang = useCallback((newLang) => {
+    setLang(newLang);
 
     try {
-      localStorage.setItem("nadia_lang", l);
+      localStorage.setItem("nadia_lang", newLang);
     } catch {}
   }, []);
 
@@ -42,7 +50,13 @@ export function LanguageProvider({ children }) {
   );
 
   return (
-    <LanguageContext.Provider value={{ lang, switchLang, t }}>
+    <LanguageContext.Provider
+      value={{
+        lang,
+        switchLang,
+        t,
+      }}
+    >
       {children}
     </LanguageContext.Provider>
   );
