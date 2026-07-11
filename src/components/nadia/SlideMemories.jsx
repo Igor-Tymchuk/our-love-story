@@ -48,7 +48,7 @@ export default function SlideMemories({ isActive }) {
           initial={{ opacity: 0, y: 20 }}
           animate={isActive ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-3xl md:text-5xl font-heading font-light italic text-[#E7B1B1] mb-4 md:mb-6 text-center flex-shrink-0"
+          className="text-3xl md:text-5xl font-heading font-light italic text-[#E7B1B1] mb-4 md:mb-6 text-center flex-shrink-0 mt-[10vh] lg:mt-auto"
         >
           {t("slide4Title")}
         </motion.h2>
